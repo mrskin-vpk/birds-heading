@@ -1,0 +1,13 @@
+<div class="back-link"><a n:href="Homepage:default">← zpet</a></div>
+{if $post}
+	<div class="name">{$post->file} | {$post->datetime|date:'d.m.Y H:i'} | {$post->place}</div>
+	<div id="image-wrap">
+		<img class="image" id="image" src="/img/thumbs/{$post->file}" />
+	</div>
+	<div class="form-wrap">
+		{control birdForm}
+	</div>
+{else}
+	zadna data
+{/if}
+
