@@ -27,6 +27,14 @@ body {
         color: white;
         font-weight: bold;
         cursor: pointer; }
+      body .form-wrap .buttons.skipp input {
+        display: inline-block;
+        background-color: #FF8000;
+        padding: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        cursor: pointer; }
     body .form-wrap .hide {
       display: none; }
   body .image-wrap {

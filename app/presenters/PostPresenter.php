@@ -14,7 +14,7 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 	private $database;
 	protected $post = null;
 
-	const WHERE_NOT_FILLED_RECORD = " (coalesce(bird,'')='' OR coalesce(body,0)=0 OR coalesce(head,0)=0) ";
+	const WHERE_NOT_FILLED_RECORD = " (coalesce(bird,'')='' OR body IS NULL OR head IS NULL) ";
 
 	public function __construct(Nette\Database\Context $database) {
 		$this->database = $database;
@@ -31,9 +31,8 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 				->order("datetime")
 				->limit(1, $offset)
 				->fetch();
-		
+
 		$this->template->rowsTotal = $this->database->fetch("SELECT FOUND_ROWS() as pocet");
-		
 	}
 
 	public function actionYearMonth($year, $month) {
@@ -73,6 +72,15 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 
 	public function renderYearMonthSkipped() {
 		$this->template->post = $this->post;
+	}
+
+	protected function createComponentSkipForm() {
+		$skipForm = new Form;
+		$skipForm->addHidden("id")
+				->setDefaultValue($this->post->id);
+		$skipForm->addSubmit('send', 'Přeskočit');
+		$skipForm->onSuccess[] = [$this, 'skipFormSucceeded'];
+		return $skipForm;
 	}
 
 	protected function createComponentBirdForm() {
@@ -136,6 +144,15 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 			'heady' => $values->heady,
 		]);
 
+		//$this->flashMessage('Děkuji za komentář', 'success');
+		$this->redirect('this');
+	}
+
+	public function skipFormSucceeded($form, $values) {
+		$postId = $values->id;
+		$this->database->table('ptaci')->where('id = ?', $postId)->update([
+			'skipped' => 1,
+		]);
 		//$this->flashMessage('Děkuji za komentář', 'success');
 		$this->redirect('this');
 	}

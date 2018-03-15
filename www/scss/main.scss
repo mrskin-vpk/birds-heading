@@ -45,6 +45,9 @@ body {
 			input {
 				@include buttonForm(#04B404);
 			}
+			&.skipp input {
+				@include buttonForm(#FF8000);
+			}
 		}
 		.hide {
 			display: none;
