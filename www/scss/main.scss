@@ -1,3 +1,9 @@
+@mixin my-rotate($some-number) {
+    -webkit-transform: rotate($some-number);
+    -moz-transform: rotate($some-number);
+    transform: rotate($some-number);
+}
+
 body {
 	.back-link {
 		float: left;
@@ -5,5 +11,60 @@ body {
 	}
 	.name {
 		float: left;
+	}
+	.image-wrap {
+		float: left;
+		clear: left;
+	}
+	.form-wrap {
+		float:left;
+	}
+
+	.image-wrap {
+		width: 1000px;
+		height: 750px;
+		position: relative;
+		cursor: crosshair;
+		#image,#body,#head {
+			position: absolute;
+			width: 1000px;
+			height: 750px;
+		}
+	}
+}
+
+#pointer-wrap {
+    display: none;
+	position: absolute;
+	width: 20px; 
+	height: 800px; 
+	@include my-rotate(0deg);
+
+
+	
+	#pointer-neck {
+		display: block; 
+		position: absolute; 
+		top: 0px; 
+		left: 50%; 
+		width:2px;
+		height: 400px;
+		margin-left: -3px;
+		background: #F00; 
+	}
+
+	#pointer-arrow {
+		display: block; 
+		position: absolute;
+		top: 0px; 
+		left: 50%; 
+		width: 15px; 
+		height: 15px; 
+		margin-left: -10px; 
+		background: rgba(0,0,0,0.0);
+		border: 2px solid #F00;
+		border-bottom: none; 
+		border-right: none;
+		@include my-rotate(45deg);	
 	}
 }

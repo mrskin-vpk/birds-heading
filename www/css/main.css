@@ -3,3 +3,50 @@ body .back-link {
   margin-right: 20px; }
 body .name {
   float: left; }
+body .image-wrap {
+  float: left;
+  clear: left; }
+body .form-wrap {
+  float: left; }
+body .image-wrap {
+  width: 1000px;
+  height: 750px;
+  position: relative;
+  cursor: crosshair; }
+  body .image-wrap #image, body .image-wrap #body, body .image-wrap #head {
+    position: absolute;
+    width: 1000px;
+    height: 750px; }
+
+#pointer-wrap {
+  display: none;
+  position: absolute;
+  width: 20px;
+  height: 800px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  transform: rotate(0deg); }
+  #pointer-wrap #pointer-neck {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 2px;
+    height: 400px;
+    margin-left: -3px;
+    background: #F00; }
+  #pointer-wrap #pointer-arrow {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    margin-left: -10px;
+    background: transparent;
+    border: 2px solid #F00;
+    border-bottom: none;
+    border-right: none;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg); }

@@ -1,12 +1,30 @@
 <div class="back-link"><a n:href="Homepage:default">← zpet</a></div>
 {if $post}
 	<div class="name">{$post->file} | {$post->datetime|date:'d.m.Y H:i'} | {$post->place}</div>
-	<div id="image-wrap">
-		<img class="image" id="image" src="/img/thumbs/{$post->file}" />
+	<span id="xCoordinates2"></span>
+	<span id="xCoordinates"></span>
+	<span id="xCoordinates3"></span>
+
+</div>	
+
+<div class="image-wrap" id="image-wrap">
+	<img id="image" src="/img/thumbs/{$post->file}" />
+	<div id="body">
+		<div id="pointer-wrap">
+			<div id="pointer-arrow"></div>
+			<div id="pointer-neck"></div>
+		</div>
 	</div>
-	<div class="form-wrap">
-		{control birdForm}
+	<div id="head">
 	</div>
+</div>		
+</div>
+
+
+
+<div class="form-wrap">
+	{control birdForm}
+</div>
 {else}
 	zadna data
 {/if}
