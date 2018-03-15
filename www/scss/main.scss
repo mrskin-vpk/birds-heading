@@ -3,14 +3,14 @@
     -moz-transform: rotate($some-number);
     transform: rotate($some-number);
 }
+$color-1 : #0FF;
+$color-2 : #F0F;
 
 body {
+	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	.back-link {
 		float: left;
 		margin-right: 20px;
-	}
-	.name {
-		float: left;
 	}
 	.image-wrap {
 		float: left;
@@ -32,17 +32,76 @@ body {
 		}
 	}
 }
+.info-wrap {
+    position: absolute;
+    width: 200px;
+    height: 10px;	
+	.info {
+		position: relative;
+		left: 5px;
+		width: 70px;
+		height: 70px;
+		background-color: black;	
+		border-width:4px;
+		border-style:solid;
+		border: none;
+		box-sizing: border-box;
+		cursor: pointer;
+		.heading {
+			font-size: 20px;
+			left: 3px;
+			top: 5px;
+			position: absolute;
+			padding: 5px;
+		}
+		.value {
+			font-size: 20px;
+			left: 5px;
+			bottom: 5px;
+			position: absolute;
+		}
+		&.bird-info {
+			top: 5px;
+			width: auto;
+			height: 30px;
+			color: white;
+			border:none;
+			.heading {
+				width: auto;
+				left: 5px;
+				top: 0px;
+			}
+		}
+		&.body-info {
+			top: 20px;
+			color: $color-1;
+			border-color:$color-1;
+		}
+		&.head-info {
+			top: 40px;
+			color: $color-2;
+			border-color:$color-2;
 
-#pointer-wrap {
+		}
+		&.same {
+			top: 50px;
+			width: 25px;
+			height: 40px;
+			color: $color-2;
+		}
+		
+
+	}
+}
+
+.pointer-wrap {
     display: none;
 	position: absolute;
 	width: 20px; 
 	height: 800px; 
 	@include my-rotate(0deg);
 
-
-	
-	#pointer-neck {
+	.pointer-neck {
 		display: block; 
 		position: absolute; 
 		top: 0px; 
@@ -50,10 +109,10 @@ body {
 		width:2px;
 		height: 400px;
 		margin-left: -3px;
-		background: #F00; 
+		background: $color-1; 
 	}
 
-	#pointer-arrow {
+	.pointer-arrow {
 		display: block; 
 		position: absolute;
 		top: 0px; 
@@ -62,9 +121,36 @@ body {
 		height: 15px; 
 		margin-left: -10px; 
 		background: rgba(0,0,0,0.0);
-		border: 2px solid #F00;
+		border: 2px solid $color-1;
 		border-bottom: none; 
 		border-right: none;
 		@include my-rotate(45deg);	
+	}
+}
+#pointer-wrap-2 .pointer-neck {
+	background: $color-2; 
+}
+#pointer-wrap-2 .pointer-arrow {
+	border-color: $color-2;
+}
+
+.spices {
+	.img-wrap {
+		width: 150px;
+		height: 130px;
+		border: 1px solid black;
+		float: left;
+		position: relative;
+		margin-bottom: 5px;
+		margin-left: 5px;
+		.img-name {
+			text-align: center;
+			vertical-align: middle;
+			padding-top: 2px;
+		}
+		img {
+			position: absolute;
+			bottom: 0px;
+		}
 	}
 }
