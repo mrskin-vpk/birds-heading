@@ -1,4 +1,3 @@
-<div class="back-link"><a n:href="Homepage:default">← KONEC</a></div>
 {if $post}
 	<div class="name">{$post->file} | {$post->datetime|date:'d.m.Y H:i'} | {$post->place}</div>
 	<span id="xCoordinates"></span>
@@ -31,10 +30,10 @@
 			<div class="heading">Hlava</div>
 			<div class="value"></div>
 		</div>
-<!--		<div class="info same" id="same-info">
-			<div class="heading">||</div>
-		</div>-->
-</div>
+		<!--		<div class="info same" id="same-info">
+					<div class="heading">||</div>
+				</div>-->
+	</div>
 
 	<div class="spices">
 		<div class="img-wrap">
@@ -96,14 +95,48 @@
 		<div class="img-wrap">
 			<div class="img-name">Vrabec polní</div>
 			<img src="/img/spices/Vrabec polní.jpg" alt=""/>
-		</div
+		</div>
 	</div>
 
 
 	<div class="form-wrap">
-		{control birdForm}
-	</div>
+		{form birdForm}
+			<!-- Jednoduché vykreslení chyb -->
+			<div>
+				<ul class="errors" n:if="$form->hasErrors()">
+					<li n:foreach="$form->errors as $error">{$error}</li>
+				</ul>
+			</div>
+			<div class="show">
+				<div>
+					{label 'body' /}
+					{input 'body' }
+				</div>
+				<div>
+					{label 'head' /}
+					{input 'head' }
+				</div>
+				<div>
+
+					{label 'bird' /}
+					{input 'bird' }
+				</div>
+			</div>
+			<div class="hide">
+				{input 'id'}
+				{input 'bodyx'}
+				{input 'bodyy'}
+				{input 'headx'}
+				{input 'heady'}
+			</div>
+			<div class="buttons">
+				{input 'send'}
+			</div>
+		</table>
+	{/form}		
+
+</div>
 {else}
-	zadna data
+	Žádná data
 {/if}
 

@@ -1,5 +1,5 @@
 {block content}
-<h1 n:block="title">Ptaci</h1>
+<h1 n:block="title">Přehled</h1>
 {*
     {foreach $posts as $post}
     <div class="post">
@@ -16,12 +16,13 @@
 *}
 <table>
 	<tr>
-		<th>hotovo</th>
-		<th>preskoceno</th>
-		<th>celkem</th>
-		<th>lokalita</th>
-		<th>rok</th>
-		<th>mesic</th>
+		<th>Hotovo</th>
+		<th>Přeskočeno</th>
+		<th>Celkem</th>
+		<th>Lokalita</th>
+		<th>Rok</th>
+		<th>Měsíc</th>
+		<th></th>
 		<th></th>
 		<th></th>
 	</tr>
@@ -33,8 +34,9 @@
 			<td>{$post->place}</td>
 			<td>{$post->year}</td>
 			<td>{$post->month}</td>
-			<td><a n:href="Post:yearMonth $post->year, $post->month">vyplnovat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-			<td><a n:href="Post:yearMonthSkipped $post->year, $post->month">  preskocene</a></th>
+			<td><a n:href="Post:yearMonth $post->year, $post->month">Vypňovat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+			<td><a n:href="Post:yearMonthSkipped $post->year, $post->month">  Přeskočené</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+			<td><a n:href="Post:yearMonthDone $post->year, $post->month, 0">  Vylněné</a></th>
 		</tr>
     {/foreach}
 </table>

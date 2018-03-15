@@ -1,8 +1,9 @@
-var actualIndex;
+
 
 $(document).ready(function () {
 
-	var arrvisible = [];
+	var actualIndex;
+	//var arrvisible = [];
 	var rotate = [];
 
 	var arrRotStartX = [];
@@ -18,8 +19,8 @@ $(document).ready(function () {
 
 	//http://jsfiddle.net/HeFqh/
 	for (i = 1; i <= 2; i++) {
-		arrvisible[i] = false;
-		rotate[i] = true;
+		//arrvisible[i] = false;
+		rotate[i] = false;
 		arrRotStartX[i] = 0;
 		arrRotStartY[i] = 0;
 		mousedown[i] = false;
@@ -27,6 +28,7 @@ $(document).ready(function () {
 		arrDownStartPosX[i] = 0;
 		arrDownStartY[i] = 0;
 		arrAngel[i] = 0;
+		moveToPositionAndRotate(i);
 	}
 
 	setIndex(1);
@@ -51,27 +53,25 @@ $(document).ready(function () {
 
 	// This is just a wild guess at a formula that obviously doesn't work properly
 
-	$('#image-wrap').click(function (e) {
-		if (!arrvisible[actualIndex]) {
-			arrRotStartX[actualIndex] = e.pageX - this.offsetLeft;
-			arrRotStartY[actualIndex] = e.pageY - this.offsetTop;
-
-			var x = arrRotStartX[actualIndex] - ($('#pointer-wrap-' + actualIndex).width() / 2);
-			var y = arrRotStartY[actualIndex] - ($('#pointer-wrap-' + actualIndex).height() / 2);
-			arrAngel[i] = 0;
-			setPositionAndRotation(actualIndex, "block", x, y, 0);
-
-			rotate[actualIndex] = true;
-			arrvisible[actualIndex] = true;
-		} else {
-			rotate[actualIndex] = false;
-			arrvisible[actualIndex] = false;
-		}
+	$('#image-wrap').mousedown(function (e) {
+		rotate[actualIndex] = true;
+		arrRotStartX[actualIndex] = e.pageX - this.offsetLeft;
+		arrRotStartY[actualIndex] = e.pageY - this.offsetTop;
+		arrAngel[i] = 0;
 		saveStart(actualIndex, arrRotStartX[actualIndex], arrRotStartY[actualIndex]);
 	});
 
+	$('#image-wrap').mouseup(function (e) {
+		if (arrRotStartX[actualIndex] === e.pageX - this.offsetLeft &&
+				arrRotStartY[actualIndex] === e.pageY - this.offsetTop
+				) {
+			deleteArrow(actualIndex);
+		}
+		rotate[actualIndex] = false;
+	});
+
 	$('#image-wrap').mousemove(function (e) {
-		if (arrvisible[actualIndex] && rotate[actualIndex]) {
+		if (rotate[actualIndex]) {
 			var x = e.pageX - this.offsetLeft;
 			var y = e.pageY - this.offsetTop;
 
@@ -80,9 +80,8 @@ $(document).ready(function () {
 			var xDeg = (xRtt * 180 / Math.PI) - 90;
 			xDeg = xDeg < 0 ? 360 + xDeg : xDeg;
 			arrAngel[i] = xDeg;
-			setRotation(actualIndex, xDeg);
+			saveAngle(actualIndex, xDeg);
 		}
-
 	});
 
 	$(".img-wrap").click(function (e) {
@@ -95,17 +94,34 @@ $(document).ready(function () {
 	$("#frm-birdForm-bird").change(function (e) {
 		$("#bird-info .heading").text($(this).val());
 	});
-	
-	$("#frm-birdForm-head").change(function (e) {
-		$("#head-info .value").text($(this).val());
-	});
 
 	$("#frm-birdForm-body").change(function (e) {
 		$("#body-info .value").text($(this).val());
+		saveAngle(1, $(this).val());		
 	});
-	
 
+	$("#frm-birdForm-head").change(function (e) {
+		$("#head-info .value").text($(this).val());
+		saveAngle(2, $(this).val());		
+	});
+
+
+	function setIndex(i) {
+		actualIndex = i;
+		frameButtons(i);
+	}
 });
+
+function frameButtons(i) {
+	if (i === 1) {
+		$('#body-info').css({"border": "solid"});
+		$('#head-info').css({"border": "none"});
+	}
+	if (i === 2) {
+		$('#head-info').css({"border": "solid"});
+		$('#body-info').css({"border": "none"});
+	}
+}
 
 function saveStart(index, x, y) {
 	var selectorx = "";
@@ -120,52 +136,91 @@ function saveStart(index, x, y) {
 	}
 	$(selectorx).val(x);
 	$(selectory).val(y);
+	moveToPositionAndRotate(index);
 }
 
-function saveAngle(index, angle) {
+function deleteArrow(index) {
+	var selectorx = "";
+	var selectory = "";
+	var selectorAngle = "";
+	if (index === 1) {
+		selectorx = "#frm-birdForm-bodyx";
+		selectory = "#frm-birdForm-bodyy";
+		selectorAngle = "#frm-birdForm-body";
+	}
+	if (index === 2) {
+		selectorx = "#frm-birdForm-headx";
+		selectory = "#frm-birdForm-heady";
+		selectorAngle = "#frm-birdForm-head";
+	}
+	$(selectorx).val("");
+	$(selectory).val("");
+	$(selectorAngle).val("");
+	moveToPositionAndRotate(index);
+}
+
+
+
+function saveAngle(i, angle) {
 	var selectorForm = "";
 	var selectorDiv = "";
-	if (index === 1) {
+	if (i === 1) {
 		selectorForm = "#frm-birdForm-body";
 		selectorDiv = "#body-info .value";
 	}
-	if (index === 2) {
+	if (i === 2) {
 		selectorForm = "#frm-birdForm-head";
 		selectorDiv = "#head-info .value";
 	}
-	$(selectorForm).val(angle);
-	$(selectorDiv).text(angle + "°");
+	var roundDeg = Math.round(angle);
+	roundDeg = roundDeg % 360;
+
+	$(selectorForm).val(roundDeg);
+	$(selectorDiv).text(roundDeg + "°");
+	rotateItem(i)
 }
 
-function setIndex(i) {
-	actualIndex = i;
-	//$('span#xCoordinates').text("index: " + i);
+function moveToPositionAndRotate(i) {
+	var selectorx = "";
+	var selectory = "";
 	if (i === 1) {
-		$('#body-info').css({"border": "solid"});
-		$('#head-info').css({"border": "none"});
+		selectorx = "#frm-birdForm-bodyx";
+		selectory = "#frm-birdForm-bodyy";
 	}
 	if (i === 2) {
-		$('#head-info').css({"border": "solid"});
-		$('#body-info').css({"border": "none"});
+		selectorx = "#frm-birdForm-headx";
+		selectory = "#frm-birdForm-heady";
 	}
+	if ($(selectorx).val() === "" || $(selectory).val() === "") {
+		$('#pointer-wrap-' + i).css({
+			"display": "none"
+		});
+	} else {
+		var x = $(selectorx).val() - ($('#pointer-wrap-' + i).width() / 2);
+		var y = $(selectory).val() - ($('#pointer-wrap-' + i).height() / 2);
+		$('#pointer-wrap-' + i).css({
+			"display": "block",
+			"left": x + "px",
+			"top": y + "px",
+		});
+	}
+	rotateItem(i);
 }
 
-function setPositionAndRotation(i, display, x, y, rotation) {
-	$('#pointer-wrap-' + i).css({
-		"display": display,
-		"left": x + "px",
-		"top": y + "px",
-	});
-	setRotation(i, rotation);
-}
-
-function setRotation(i, xDeg) {
-	$('#pointer-wrap-' + i).css({
-		"-moz-transform": "rotate(" + xDeg + "deg)",
-		"-webkit-transform": "rotate(" + xDeg + "deg)",
-		"transform": "rotate(" + xDeg + "deg)"
-	});
-	var roundDeg = Math.round(xDeg);
-	roundDeg = roundDeg % 360;
-	saveAngle(i, roundDeg);
+function rotateItem(i) {
+	var selectorForm = "";
+	if (i === 1) {
+		selectorForm = "#frm-birdForm-body";
+	}
+	if (i === 2) {
+		selectorForm = "#frm-birdForm-head";
+	}
+	var roundDeg = $(selectorForm).val();
+	if (roundDeg !== "") {
+		$('#pointer-wrap-' + i).css({
+			"-moz-transform": "rotate(" + roundDeg + "deg)",
+			"-webkit-transform": "rotate(" + roundDeg + "deg)",
+			"transform": "rotate(" + roundDeg + "deg)"
+		});
+	}
 }

@@ -20,8 +20,20 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 		$this->database = $database;
 	}
 
-	public function actionShow($postId) {
-		$this->post = $this->database->table('ptaci')->get($postId);
+	public function actionYearMonthDone($year, $month, $offset) {
+		$this->post = $this->database
+				->table('ptaci')
+				->select("SQL_CALC_FOUND_ROWS *")
+				->where("month(datetime)=?", $month)
+				->where("year(datetime)=?", $year)
+				->where("skipped=0")
+				->where(" NOT " . self::WHERE_NOT_FILLED_RECORD)
+				->order("datetime")
+				->limit(1, $offset)
+				->fetch();
+		
+		$this->template->rowsTotal = $this->database->fetch("SELECT FOUND_ROWS() as pocet");
+		
 	}
 
 	public function actionYearMonth($year, $month) {
@@ -48,15 +60,18 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 				->fetch();
 	}
 
-	public function renderShow($postId) {
+	public function renderYearMonthDone($year, $month, $offset) {
+		$this->template->post = $this->post;
+		$this->template->year = $year;
+		$this->template->month = $month;
+		$this->template->offset = $offset;
+	}
+
+	public function renderYearMonth() {
 		$this->template->post = $this->post;
 	}
 
-	public function renderYearMonth($year, $month) {
-		$this->template->post = $this->post;
-	}
-
-	public function renderYearMonthSkipped($year, $month) {
+	public function renderYearMonthSkipped() {
 		$this->template->post = $this->post;
 	}
 
@@ -95,6 +110,16 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 
 		$this->form->onSuccess[] = [$this, 'birdFormSucceeded'];
 
+		$this->form->setDefaults([
+			'head' => $this->post->head,
+			'body' => $this->post->body,
+			'bird' => $this->post->bird,
+			'bodyx' => $this->post->bodyx,
+			'bodyy' => $this->post->bodyy,
+			'headx' => $this->post->headx,
+			'heady' => $this->post->heady,
+		]);
+
 		return $this->form;
 	}
 
@@ -107,11 +132,11 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 			'bird' => $values->bird,
 			'bodyx' => $values->bodyx,
 			'bodyy' => $values->bodyy,
-			'headx' => $values->head,
-			'heady' => $values->head,
+			'headx' => $values->headx,
+			'heady' => $values->heady,
 		]);
 
-		$this->flashMessage('Děkuji za komentář', 'success');
+		//$this->flashMessage('Děkuji za komentář', 'success');
 		$this->redirect('this');
 	}
 
