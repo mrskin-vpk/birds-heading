@@ -22,10 +22,14 @@ class HomepagePresenter extends Nette\Application\UI\Presenter {
 //	
 	public function renderDefault() {
 		$this->template->posts = $this->database->query(""
-		. "SELECT "
-		. "count(*) total,COUNT(IF( NOT(".PostPresenter::WHERE_NOT_FILLED_RECORD.") and skipped = 0,1,NULL)) filled,COUNT(IF( ".PostPresenter::WHERE_NOT_FILLED_RECORD." and skipped = 1,1,NULL)) skipped,place,year(datetime) year,month(datetime) month "
-		. "FROM `ptaci` group by place,year(datetime),month(datetime) "
-		. "ORDER BY datetime");
-	}	
+				. "SELECT "
+				. "count(*) total,COUNT(IF( NOT(" . PostPresenter::WHERE_NOT_FILLED_RECORD . ") and skipped = 0,1,NULL)) filled,"
+				. "COUNT(IF( " . PostPresenter::WHERE_NOT_FILLED_RECORD . " and skipped = 1,1,NULL)) skipped,"
+				. "place,year(datetime) year,month(datetime) month "
+				. "FROM `ptaci` "
+				. "WHERE deleted=0 "
+				. "GROUP BY place,year(datetime),month(datetime) "
+				. "ORDER BY datetime");
+	}
 
 }

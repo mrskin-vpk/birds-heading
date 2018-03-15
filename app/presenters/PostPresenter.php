@@ -27,6 +27,7 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 				->where("month(datetime)=?", $month)
 				->where("year(datetime)=?", $year)
 				->where("skipped=0")
+				->where("deleted=0")
 				->where(" NOT " . self::WHERE_NOT_FILLED_RECORD)
 				->order("datetime")
 				->limit(1, $offset)
@@ -41,6 +42,7 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 				->where("month(datetime)=?", $month)
 				->where("year(datetime)=?", $year)
 				->where("skipped=0")
+				->where("deleted=0")
 				->where(self::WHERE_NOT_FILLED_RECORD)
 				->order("datetime")
 				->limit(1)
@@ -53,6 +55,7 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 				->where("month(datetime)=?", $month)
 				->where("year(datetime)=?", $year)
 				->where("skipped=1")
+				->where("deleted=0")
 				->where(self::WHERE_NOT_FILLED_RECORD)
 				->order("datetime")
 				->limit(1)
@@ -81,6 +84,15 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 		$skipForm->addSubmit('send', 'Přeskočit');
 		$skipForm->onSuccess[] = [$this, 'skipFormSucceeded'];
 		return $skipForm;
+	}
+
+	protected function createComponentDeleteForm() {
+		$deleteForm = new Form;
+		$deleteForm->addHidden("id")
+				->setDefaultValue($this->post->id);
+		$deleteForm->addSubmit('delete', 'Smazat')->setAttribute("onclick", "return confirm('Určitě chcete záznam smazat?')");
+		$deleteForm->onSuccess[] = [$this, 'deleteFormSucceeded'];
+		return $deleteForm;
 	}
 
 	protected function createComponentBirdForm() {
@@ -154,6 +166,14 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 			'skipped' => 1,
 		]);
 		//$this->flashMessage('Děkuji za komentář', 'success');
+		$this->redirect('this');
+	}
+
+	public function deleteFormSucceeded($form, $values) {
+		$postId = $values->id;
+		$this->database->table('ptaci')->where('id = ?', $postId)->update([
+			'deleted' => 1,
+		]);
 		$this->redirect('this');
 	}
 

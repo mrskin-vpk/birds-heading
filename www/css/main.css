@@ -17,7 +17,6 @@ body {
       body .form-wrap .show div input {
         width: 120px; }
     body .form-wrap .buttons {
-      clear: left;
       float: left; }
       body .form-wrap .buttons input {
         display: inline-block;
@@ -30,6 +29,15 @@ body {
       body .form-wrap .buttons.skipp input {
         display: inline-block;
         background-color: #FF8000;
+        padding: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        cursor: pointer; }
+      body .form-wrap .buttons input[name="delete"] {
+        margin-left: 50px;
+        display: inline-block;
+        background-color: #FF0000;
         padding: 10px;
         text-align: center;
         color: white;
