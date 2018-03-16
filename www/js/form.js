@@ -9,13 +9,6 @@ $(document).ready(function () {
 	var arrRotStartX = [];
 	var arrRotStartY = [];
 
-	var mousedown = [];
-	var arrDownStartX = [];
-	var arrDownStartPosX = [];
-	var arrDownStartY = [];
-
-	var arrAngel = [];
-
 
 	//http://jsfiddle.net/HeFqh/
 	for (i = 1; i <= 2; i++) {
@@ -23,15 +16,10 @@ $(document).ready(function () {
 		rotate[i] = false;
 		arrRotStartX[i] = 0;
 		arrRotStartY[i] = 0;
-		mousedown[i] = false;
-		arrDownStartX[i] = 0;
-		arrDownStartPosX[i] = 0;
-		arrDownStartY[i] = 0;
-		arrAngel[i] = 0;
 		moveToPositionAndRotate(i);
 	}
 
-	setIndex(1);
+	setIndex(2);
 
 	$("#body-info").click(function (e) {
 		setIndex(1);
@@ -40,38 +28,47 @@ $(document).ready(function () {
 		setIndex(2);
 	});
 
-//
-//	$("#same-info").click(function (e) {
-//		if (!arrvisible[1]) {
-//			return;
-//		}
-//		setPositionAndRotation(2, "block", arrRotStartX[1] + 1, arrRotStartY[1] + 1, arrAngel[1]);
-//	});
+
+	$("#same-info").click(function (e) {
+		if (getAngle(1) !== "") {
+			saveStart(2, getXValue(1) * 1 + 5, getYValue(1) * 1 + 5);
+			saveAngle(2, getAngle(1));
+		} else if (getAngle(2) !== "") {
+			saveStart(1, getXValue(2) * 1 + 5, getYValue(2) * 1 + 5);
+			saveAngle(1, getAngle(2));
+		}
+	});
 
 
 	//  Looking for a formula that will set the initial arrow rotation to point  to the left border of the target-box at any browser width. This will be  the target-box cursor x=0 position.         
 
 	// This is just a wild guess at a formula that obviously doesn't work properly
 
-	$('#image-wrap').mousedown(function (e) {
-		rotate[actualIndex] = true;
-		arrRotStartX[actualIndex] = e.pageX - this.offsetLeft;
-		arrRotStartY[actualIndex] = e.pageY - this.offsetTop;
-		arrAngel[i] = 0;
-		saveStart(actualIndex, arrRotStartX[actualIndex], arrRotStartY[actualIndex]);
+	$('#image-wrap').click(function (e) {
+		if (rotate[actualIndex]) {
+			rotate[actualIndex] = false;
+		} else {
+			rotate[actualIndex] = false;
+			arrRotStartX[actualIndex] = e.pageX - this.offsetLeft;
+			arrRotStartY[actualIndex] = e.pageY - this.offsetTop;
+			saveStart(actualIndex, arrRotStartX[actualIndex], arrRotStartY[actualIndex]);
+			rotate[actualIndex] = true;
+		}
 	});
 
-	$('#image-wrap').mouseup(function (e) {
-		if (arrRotStartX[actualIndex] === e.pageX - this.offsetLeft &&
-				arrRotStartY[actualIndex] === e.pageY - this.offsetTop
-				) {
-			deleteArrow(actualIndex);
-		}
-		rotate[actualIndex] = false;
-	});
+//	$('#image-wrap').mouseup(function (e) {
+//	deleteArrow(actualIndex);
+//		if (arrRotStartX[actualIndex] === e.pageX - this.offsetLeft &&
+//				arrRotStartY[actualIndex] === e.pageY - this.offsetTop
+//				) {
+//			deleteArrow(actualIndex);
+//		}
+//		rotate[actualIndex] = false;
+//	});
 
 	$('#image-wrap').mousemove(function (e) {
 		if (rotate[actualIndex]) {
+			//console.log("rotating");
 			var x = e.pageX - this.offsetLeft;
 			var y = e.pageY - this.offsetTop;
 
@@ -79,7 +76,6 @@ $(document).ready(function () {
 			//var xDeg = (xRtt > 0 ? x : (2 * Math.PI + xRtt)) * 360 / (2 * Math.PI)
 			var xDeg = (xRtt * 180 / Math.PI) - 90;
 			xDeg = xDeg < 0 ? 360 + xDeg : xDeg;
-			arrAngel[i] = xDeg;
 			saveAngle(actualIndex, xDeg);
 		}
 	});
@@ -96,13 +92,11 @@ $(document).ready(function () {
 	});
 
 	$("#frm-birdForm-body").change(function (e) {
-		$("#body-info .value").text($(this).val());
-		saveAngle(1, $(this).val());		
+		saveAngle(1, $(this).val());
 	});
 
 	$("#frm-birdForm-head").change(function (e) {
-		$("#head-info .value").text($(this).val());
-		saveAngle(2, $(this).val());		
+		saveAngle(2, $(this).val());
 	});
 
 
@@ -181,23 +175,15 @@ function saveAngle(i, angle) {
 }
 
 function moveToPositionAndRotate(i) {
-	var selectorx = "";
-	var selectory = "";
-	if (i === 1) {
-		selectorx = "#frm-birdForm-bodyx";
-		selectory = "#frm-birdForm-bodyy";
-	}
-	if (i === 2) {
-		selectorx = "#frm-birdForm-headx";
-		selectory = "#frm-birdForm-heady";
-	}
-	if ($(selectorx).val() === "" || $(selectory).val() === "") {
+	var xValue = getXValue(i);
+	var yValue = getYValue(i);
+	if (xValue === "" || yValue === "") {
 		$('#pointer-wrap-' + i).css({
 			"display": "none"
 		});
 	} else {
-		var x = $(selectorx).val() - ($('#pointer-wrap-' + i).width() / 2);
-		var y = $(selectory).val() - ($('#pointer-wrap-' + i).height() / 2);
+		var x = xValue - ($('#pointer-wrap-' + i).width() / 2);
+		var y = yValue - ($('#pointer-wrap-' + i).height() / 2);
 		$('#pointer-wrap-' + i).css({
 			"display": "block",
 			"left": x + "px",
@@ -207,7 +193,50 @@ function moveToPositionAndRotate(i) {
 	rotateItem(i);
 }
 
+function getXValue(i) {
+	var selectorx = "";
+	if (i === 1) {
+		selectorx = "#frm-birdForm-bodyx";
+	}
+	if (i === 2) {
+		selectorx = "#frm-birdForm-headx";
+	}
+	return $(selectorx).val();
+}
+
+function getYValue(i) {
+	var selectory = "";
+	if (i === 1) {
+		selectory = "#frm-birdForm-bodyy";
+	}
+	if (i === 2) {
+		selectory = "#frm-birdForm-heady";
+	}
+	return $(selectory).val();
+}
+
 function rotateItem(i) {
+	var selectorDiv = "";
+	if (i === 1) {
+		selectorDiv = "#body-info .value";
+	}
+	if (i === 2) {
+		selectorDiv = "#head-info .value";
+	}
+	var roundDeg = getAngle(i);
+	if (roundDeg !== "") {
+		$(selectorDiv).text(roundDeg + "°");
+		$('#pointer-wrap-' + i).css({
+			"-moz-transform": "rotate(" + roundDeg + "deg)",
+			"-webkit-transform": "rotate(" + roundDeg + "deg)",
+			"transform": "rotate(" + roundDeg + "deg)"
+		});
+	} else {
+		$(selectorDiv).text("");
+	}
+}
+
+function getAngle(i) {
 	var selectorForm = "";
 	if (i === 1) {
 		selectorForm = "#frm-birdForm-body";
@@ -215,12 +244,5 @@ function rotateItem(i) {
 	if (i === 2) {
 		selectorForm = "#frm-birdForm-head";
 	}
-	var roundDeg = $(selectorForm).val();
-	if (roundDeg !== "") {
-		$('#pointer-wrap-' + i).css({
-			"-moz-transform": "rotate(" + roundDeg + "deg)",
-			"-webkit-transform": "rotate(" + roundDeg + "deg)",
-			"transform": "rotate(" + roundDeg + "deg)"
-		});
-	}
+	return $(selectorForm).val();
 }

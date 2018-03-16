@@ -131,7 +131,12 @@ body {
 			top: 50px;
 			width: 25px;
 			height: 40px;
-			color: $color-2;
+			.one {
+				color: $color-1;
+			}
+			.two {
+				color: $color-2;
+			}
 		}
 
 

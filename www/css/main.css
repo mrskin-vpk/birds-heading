@@ -105,8 +105,11 @@ body {
     .info-wrap .info.same {
       top: 50px;
       width: 25px;
-      height: 40px;
-      color: #F0F; }
+      height: 40px; }
+      .info-wrap .info.same .one {
+        color: #0FF; }
+      .info-wrap .info.same .two {
+        color: #F0F; }
 
 .pointer-wrap {
   display: none;
