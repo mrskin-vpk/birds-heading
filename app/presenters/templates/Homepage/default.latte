@@ -34,10 +34,11 @@
 			<td>{$post->place}</td>
 			<td>{$post->year}</td>
 			<td>{$post->month}</td>
-			<td><a n:href="Post:yearMonth $post->year, $post->month">Vypňovat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+			<td><a n:href="Post:yearMonth $post->year, $post->month">Vyplňovat</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 			<td><a n:href="Post:yearMonthSkipped $post->year, $post->month">  Přeskočené</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-			<td><a n:href="Post:yearMonthDone $post->year, $post->month, 0">  Vylněné</a></th>
+			<td><a n:href="Post:yearMonthDone $post->year, $post->month, 0">  Vyplněné</a></th>
 		</tr>
     {/foreach}
+	
 </table>
 {/block}

@@ -18,6 +18,7 @@ $(document).ready(function () {
 		arrRotStartY[i] = 0;
 		moveToPositionAndRotate(i);
 	}
+	$("#bird-info .heading").text($("#frm-birdForm-bird").val());
 
 	setIndex(2);
 

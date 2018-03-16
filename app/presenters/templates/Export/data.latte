@@ -1,0 +1,27 @@
+{block content}
+<table>
+	<tr>
+		<th>Číslo snímku</th>
+		<th>Druh ptáka</th>
+		<th>Lokalita</th>
+		<th>Rok</th>
+		<th>Měsíc</th>
+		<th>Den</th>
+		<th>Přesný čas</th>
+		<th>Orientace hlavy (ve °)</th>
+		<th>Orientace těla (ve °)</th>			
+	</tr>
+	{foreach $posts as $post}
+		<tr>
+			<td>{$post->file}</td>
+			<td>{$post->bird}</td>
+			<td>{$post->place}</td>
+			<td>{$post->datetime|date:'Y'}</td>
+			<td>{$post->datetime|date:'m'}</td>
+			<td>{$post->datetime|date:'d'}</td>
+			<td>{$post->datetime|date:'H:i'}</td>
+			<td>{$post->head}</td>
+			<td>{$post->body}</td>			
+		</tr>
+	{/foreach}
+</table>

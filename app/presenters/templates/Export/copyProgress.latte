@@ -1,0 +1,31 @@
+{block content}
+<div n:block=title class="title">Kopirovani A</div>
+<div id="progress"></div>
+<script type="text/javascript">
+	$(function () {
+		var prevText = "";
+		$.ajax({
+			type: 'GET',
+			url: "/export/copy",
+			data: {},
+			xhr: function () {
+				var xhr = $.ajaxSettings.xhr();
+				xhr.addEventListener("progress", function (evt) {
+					/* nepouzivam lengthComputable, jelikoz nepouzivam Content-length hlavicku */
+					$("#progress").html(this.responseText.substring(prevText.length));
+					prevText = this.responseText;
+				}, false);
+				return xhr;
+			},
+			success: function (data) {
+				$("#progress").html("hotovo");
+				$(".exp-menu").show();
+			}
+		});
+	});
+</script>
+<div class="exp-menu">
+	<div>adresar se soubory je: {$exportDir}</div>
+	<a n:href="Homepage:default">Přehled</a>
+	<a n:href="Export:default">Export</a>	
+</div>
