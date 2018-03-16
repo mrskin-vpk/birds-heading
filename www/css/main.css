@@ -63,6 +63,10 @@ body {
     height: 750px;
     position: relative;
     cursor: crosshair; }
+    body .image-wrap.cursor-1 {
+      cursor: url(/img/crosshair-1.cur), auto; }
+    body .image-wrap.cursor-2 {
+      cursor: url(/img/crosshair-2.cur), auto; }
     body .image-wrap #image, body .image-wrap #body, body .image-wrap #head {
       position: absolute;
       width: 1000px;
@@ -108,11 +112,11 @@ body {
         left: 5px;
         top: 0px; }
     .info-wrap .info.body-info {
-      top: 20px;
+      top: 40px;
       color: #0FF;
       border-color: #0FF; }
     .info-wrap .info.head-info {
-      top: 40px;
+      top: 20px;
       color: #F0F;
       border-color: #F0F; }
     .info-wrap .info.same {
@@ -137,9 +141,8 @@ body {
     position: absolute;
     top: 0px;
     left: 50%;
-    width: 2px;
+    width: 1px;
     height: 400px;
-    margin-left: -3px;
     background: #0FF; }
   .pointer-wrap .pointer-arrow {
     display: block;

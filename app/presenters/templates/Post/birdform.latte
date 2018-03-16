@@ -22,14 +22,15 @@
 		<div class="info bird-info" id="bird-info">
 			<div class="heading"></div>
 		</div>
-		<div class="info body-info" id="body-info">
-			<div class="heading">Tělo</div>
-			<div class="value"></div>
-		</div>
 		<div class="info head-info" id="head-info">
 			<div class="heading">Hlava</div>
 			<div class="value"></div>
 		</div>
+		<div class="info body-info" id="body-info">
+			<div class="heading">Tělo</div>
+			<div class="value"></div>
+		</div>
+
 		<div class="info same" id="same-info">
 			<div class="heading"><span class="one">|</span><span class="two">|</span></div>
 		</div>
@@ -112,17 +113,11 @@
 					{label 'body' /}
 					{input 'body' }
 				</div>
-				<div>
-					{label 'head' /}
-					{input 'head' }
-				</div>
-				<div>
-
-					{label 'bird' /}
-					{input 'bird' }
-				</div>
 			</div>
 			<div class="hide">
+				{input 'head' }
+				{input 'bird' }
+
 				{input 'id'}
 				{input 'bodyx'}
 				{input 'bodyy'}

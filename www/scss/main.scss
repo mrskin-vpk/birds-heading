@@ -77,6 +77,12 @@ body {
 		height: 750px;
 		position: relative;
 		cursor: crosshair;
+		&.cursor-1 {
+			cursor: url(/img/crosshair-1.cur), auto;
+		}
+		&.cursor-2 {
+			cursor: url(/img/crosshair-2.cur), auto;
+		}
 		#image,#body,#head {
 			position: absolute;
 			width: 1000px;
@@ -132,12 +138,12 @@ body {
 			}
 		}
 		&.body-info {
-			top: 20px;
+			top: 40px;
 			color: $color-1;
 			border-color:$color-1;
 		}
 		&.head-info {
-			top: 40px;
+			top: 20px;
 			color: $color-2;
 			border-color:$color-2;
 
@@ -170,9 +176,8 @@ body {
 		position: absolute; 
 		top: 0px; 
 		left: 50%; 
-		width:2px;
+		width:1px;
 		height: 400px;
-		margin-left: -3px;
 		background: $color-1; 
 	}
 

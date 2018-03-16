@@ -1,3 +1,4 @@
 app/config/config.local.neon
-www/img/*
+www/img/spices/*
+www/img/thumbs/*
 www/.htpasswd
