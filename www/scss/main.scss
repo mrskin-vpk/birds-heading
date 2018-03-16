@@ -5,11 +5,12 @@
 }
 $color-1 : #0FF;
 $color-2 : #F0F;
+$arrow-length: 250px;
 
 @mixin buttonForm($color) {
     display: inline-block;
     background-color: $color;
-    padding: 10px;
+    padding: 15px 30px;
     text-align: center;
     color: white;
     font-weight: bold;	
@@ -40,20 +41,22 @@ body {
 	.image-wrap {
 		float: left;
 		clear: left;
+		overflow: hidden;
 	}
+	.show div{
+		float:left;
+		label {
+			float: left;
+			width: 120px;
+		}
+		input {
+			width: 90%;
+		}
+	}
+
 	.form-wrap {
 		float: left;
 		width: 300px;		
-		.show div{
-			float:left;
-			label {
-				float: left;
-				width: 120px;
-			}
-			input {
-				width: 120px;
-			}
-		}
 		.buttons {
 			float:left;
 			input {
@@ -61,10 +64,12 @@ body {
 			}
 			&.skipp input {
 				@include buttonForm(#FF8000);
+				padding: 3px;		
 			}
 			input[name="delete"] {
 				margin-left: 50px;
 				@include buttonForm(#FF0000);
+				padding: 3px;				
 			}
 		}
 		.hide {
@@ -168,7 +173,7 @@ body {
     display: none;
 	position: absolute;
 	width: 20px; 
-	height: 800px; 
+	height: $arrow-length*2; 
 	@include my-rotate(0deg);
 
 	.pointer-neck {
@@ -177,7 +182,7 @@ body {
 		top: 0px; 
 		left: 50%; 
 		width:1px;
-		height: 400px;
+		height: $arrow-length;
 		background: $color-1; 
 	}
 
@@ -188,7 +193,7 @@ body {
 		left: 50%; 
 		width: 15px; 
 		height: 15px; 
-		margin-left: -10px; 
+		margin-left: -8px; 
 		background: rgba(0,0,0,0.0);
 		border: 2px solid $color-1;
 		border-bottom: none; 

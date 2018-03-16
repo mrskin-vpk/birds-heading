@@ -18,23 +18,24 @@ body {
     display: none; }
   body .image-wrap {
     float: left;
-    clear: left; }
+    clear: left;
+    overflow: hidden; }
+  body .show div {
+    float: left; }
+    body .show div label {
+      float: left;
+      width: 120px; }
+    body .show div input {
+      width: 90%; }
   body .form-wrap {
     float: left;
     width: 300px; }
-    body .form-wrap .show div {
-      float: left; }
-      body .form-wrap .show div label {
-        float: left;
-        width: 120px; }
-      body .form-wrap .show div input {
-        width: 120px; }
     body .form-wrap .buttons {
       float: left; }
       body .form-wrap .buttons input {
         display: inline-block;
         background-color: #04B404;
-        padding: 10px;
+        padding: 15px 30px;
         text-align: center;
         color: white;
         font-weight: bold;
@@ -42,20 +43,22 @@ body {
       body .form-wrap .buttons.skipp input {
         display: inline-block;
         background-color: #FF8000;
-        padding: 10px;
+        padding: 15px 30px;
         text-align: center;
         color: white;
         font-weight: bold;
-        cursor: pointer; }
+        cursor: pointer;
+        padding: 3px; }
       body .form-wrap .buttons input[name="delete"] {
         margin-left: 50px;
         display: inline-block;
         background-color: #FF0000;
-        padding: 10px;
+        padding: 15px 30px;
         text-align: center;
         color: white;
         font-weight: bold;
-        cursor: pointer; }
+        cursor: pointer;
+        padding: 3px; }
     body .form-wrap .hide {
       display: none; }
   body .image-wrap {
@@ -132,7 +135,7 @@ body {
   display: none;
   position: absolute;
   width: 20px;
-  height: 800px;
+  height: 500px;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   transform: rotate(0deg); }
@@ -142,7 +145,7 @@ body {
     top: 0px;
     left: 50%;
     width: 1px;
-    height: 400px;
+    height: 250px;
     background: #0FF; }
   .pointer-wrap .pointer-arrow {
     display: block;
@@ -151,7 +154,7 @@ body {
     left: 50%;
     width: 15px;
     height: 15px;
-    margin-left: -10px;
+    margin-left: -8px;
     background: transparent;
     border: 2px solid #0FF;
     border-bottom: none;

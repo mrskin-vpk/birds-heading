@@ -1,6 +1,13 @@
 {block content}
 <div class="back-link"><a n:href="Homepage:default">Přehled</a></div>
-<div n:block=title class="title">Procházení vypněných záznamů ({$offset+1} / {$rowsTotal->pocet})</div>
+<div n:block=title class="title">Procházení vypněných záznamů ({$offset+1} / {$rowsTotal->pocet})
+	{if $offset>0}
+		<a n:href="Post:yearMonthDone $year, $month, $offset-1"><< Předchozí</a>
+	{/if}
+	{if $offset+1<$rowsTotal->pocet}
+		<a n:href="Post:yearMonthDone $year, $month, $offset+1">Další >></a>
+	{/if}
+</div>
 {include 'birdform.latte'}
 {*
 <a n:href="Post:yearMonthSkipped $post->year, $post->month">

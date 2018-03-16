@@ -84,7 +84,7 @@ $(document).ready(function () {
 		}
 	});
 
-	$(".img-wrap").click(function (e) {
+	$(".img-wrap:not(.noclick)").click(function (e) {
 		$(".spices .img-wrap").css({"border-color": "black"});
 		$(this).css({"border-color": "red"});
 		$("#frm-birdForm-bird").val($(this).children(".img-name").text());

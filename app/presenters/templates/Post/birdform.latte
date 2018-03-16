@@ -97,26 +97,34 @@
 			<div class="img-name">Vrabec polní</div>
 			<img src="/img/spices/Vrabec polní.jpg" alt=""/>
 		</div>
-	</div>
+		{form birdForm}		
+			<div class="img-wrap show noclick">
+				<div>
+					{label 'bird' /}
+					{input 'bird' }
+				</div>
+			</div>
+
+		</div>
 
 
-	<div class="form-wrap">
-		{form birdForm}
+		<div class="form-wrap">
+
 			<!-- Jednoduché vykreslení chyb -->
 			<div>
 				<ul class="errors" n:if="$form->hasErrors()">
 					<li n:foreach="$form->errors as $error">{$error}</li>
 				</ul>
 			</div>
-			<div class="show">
+			<div class="hide">
 				<div>
 					{label 'body' /}
 					{input 'body' }
 				</div>
-			</div>
-			<div class="hide">
-				{input 'head' }
-				{input 'bird' }
+				<div>
+					{label 'head' /}
+					{input 'head' }
+				</div>
 
 				{input 'id'}
 				{input 'bodyx'}
