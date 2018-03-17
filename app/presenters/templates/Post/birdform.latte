@@ -8,12 +8,14 @@
 			<div class="pointer-wrap" id="pointer-wrap-1">
 				<div class="pointer-arrow"></div>
 				<div class="pointer-neck"></div>
+				<div class="pointer-end"></div>
 			</div>
 		</div>
 		<div id="head">
 			<div class="pointer-wrap" id="pointer-wrap-2">
 				<div class="pointer-arrow"></div>
 				<div class="pointer-neck"></div>
+				<div class="pointer-end"></div>
 			</div>
 		</div>
 	</div>		
@@ -149,4 +151,21 @@
 	Žádná data
 {/if}
 
-<script src="/js/form.js" type="text/javascript"></script>
+<script src="/js/form.js?v=3" type="text/javascript"></script>
+
+{syntax double}
+	<script type="text/javascript">
+
+		function preload() {
+			if (document.images) {
+		{{foreach $nextPosts as $nextPost}}
+				var img = new Image();
+				img.src = "/img/thumbs/{{$nextPost->file|noescape}}";
+		{{/foreach}}
+			}
+		}
+		$(document).ready(function () {
+			preload();
+		});
+
+	</script>

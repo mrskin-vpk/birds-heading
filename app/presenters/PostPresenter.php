@@ -13,6 +13,7 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 	/** @var Nette\Database\Context */
 	private $database;
 	protected $post = null;
+	protected $nextPosts = [];
 
 	const WHERE_NOT_FILLED_RECORD = " (coalesce(bird,'')='' OR body IS NULL OR head IS NULL) ";
 
@@ -21,7 +22,7 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 	}
 
 	public function actionYearMonthDone($year, $month, $offset) {
-		$this->post = $this->database
+		$posts = $this->database
 				->table('ptaci')
 				->select("SQL_CALC_FOUND_ROWS *")
 				->where("month(datetime)=?", $month)
@@ -30,14 +31,18 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 				->where("deleted=0")
 				->where(" NOT " . self::WHERE_NOT_FILLED_RECORD)
 				->order("datetime")
-				->limit(1, $offset)
-				->fetch();
+				->limit(4, $offset);
+		$this->post = $posts->fetch();
+		while ($post = $posts->fetch()) {
+			$this->nextPosts[] = $post;
+		}
+		
 
 		$this->template->rowsTotal = $this->database->fetch("SELECT FOUND_ROWS() as pocet");
 	}
 
 	public function actionYearMonth($year, $month) {
-		$this->post = $this->database
+		$posts = $this->database
 				->table('ptaci')
 				->where("month(datetime)=?", $month)
 				->where("year(datetime)=?", $year)
@@ -45,12 +50,15 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 				->where("deleted=0")
 				->where(self::WHERE_NOT_FILLED_RECORD)
 				->order("datetime")
-				->limit(1)
-				->fetch();
+				->limit(2);
+		$this->post = $posts->fetch();
+		while ($post = $posts->fetch()) {
+			$this->nextPosts[] = $post;
+		}
 	}
 
 	public function actionYearMonthSkipped($year, $month) {
-		$this->post = $this->database
+		$posts = $this->database
 				->table('ptaci')
 				->where("month(datetime)=?", $month)
 				->where("year(datetime)=?", $year)
@@ -58,8 +66,11 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 				->where("deleted=0")
 				->where(self::WHERE_NOT_FILLED_RECORD)
 				->order("datetime")
-				->limit(1)
-				->fetch();
+				->limit(2);
+		$this->post = $posts->fetch();
+		while ($post = $posts->fetch()) {
+			$this->nextPosts[] = $post;
+		}
 	}
 
 	public function renderYearMonthDone($year, $month, $offset) {
@@ -67,14 +78,17 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 		$this->template->year = $year;
 		$this->template->month = $month;
 		$this->template->offset = $offset;
+		$this->template->nextPosts = $this->nextPosts;
 	}
 
 	public function renderYearMonth() {
 		$this->template->post = $this->post;
+		$this->template->nextPosts = $this->nextPosts;
 	}
 
 	public function renderYearMonthSkipped() {
 		$this->template->post = $this->post;
+		$this->template->nextPosts = $this->nextPosts;
 	}
 
 	protected function createComponentSkipForm() {

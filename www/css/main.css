@@ -156,18 +156,30 @@ body {
     height: 15px;
     margin-left: -8px;
     background: transparent;
-    border: 2px solid #0FF;
+    border: 3px solid #0FF;
     border-bottom: none;
     border-right: none;
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     transform: rotate(45deg); }
+  .pointer-wrap .pointer-end {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 3px;
+    height: 83.33333px;
+    margin-left: -1px;
+    background: #0FF; }
 
 #pointer-wrap-2 .pointer-neck {
   background: #F0F; }
 
 #pointer-wrap-2 .pointer-arrow {
   border-color: #F0F; }
+
+#pointer-wrap-2 .pointer-end {
+  background: #F0F; }
 
 .spices .img-wrap {
   width: 150px;

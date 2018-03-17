@@ -68,8 +68,8 @@ $(document).ready(function () {
 //	});
 
 	$('#image-wrap').mousemove(function (e) {
-		console.log("x", e.pageX - this.offsetLeft);
-		console.log("y", e.pageY - this.offsetTop);
+		//console.log("x", e.pageX - this.offsetLeft);
+		//console.log("y", e.pageY - this.offsetTop);
 
 		if (rotate[actualIndex]) {
 			//console.log("rotating");

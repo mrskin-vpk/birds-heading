@@ -195,10 +195,20 @@ body {
 		height: 15px; 
 		margin-left: -8px; 
 		background: rgba(0,0,0,0.0);
-		border: 2px solid $color-1;
+		border: 3px solid $color-1;
 		border-bottom: none; 
 		border-right: none;
 		@include my-rotate(45deg);	
+	}
+	.pointer-end {	
+		display: block; 
+		position: absolute;
+		top: 0px; 
+		left: 50%; 
+		width: 3px; 
+		height: $arrow-length/3; 
+		margin-left: -1px;
+		background: $color-1; 
 	}
 }
 #pointer-wrap-2 .pointer-neck {
@@ -207,6 +217,11 @@ body {
 #pointer-wrap-2 .pointer-arrow {
 	border-color: $color-2;
 }
+
+#pointer-wrap-2 .pointer-end {
+	background: $color-2;
+}
+
 
 .spices {
 	.img-wrap {
