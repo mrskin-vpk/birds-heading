@@ -36,7 +36,7 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 		while ($post = $posts->fetch()) {
 			$this->nextPosts[] = $post;
 		}
-		
+
 
 		$this->template->rowsTotal = $this->database->fetch("SELECT FOUND_ROWS() as pocet");
 	}
@@ -168,6 +168,8 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 			'bodyy' => $values->bodyy,
 			'headx' => $values->headx,
 			'heady' => $values->heady,
+			'skipped' => 0,
+			'ip' => $this->getHttpRequest()->getRemoteAddress(),
 		]);
 
 		//$this->flashMessage('Děkuji za komentář', 'success');

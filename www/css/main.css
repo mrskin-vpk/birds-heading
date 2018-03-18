@@ -135,7 +135,7 @@ body {
   display: none;
   position: absolute;
   width: 20px;
-  height: 500px;
+  height: 600px;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   transform: rotate(0deg); }
@@ -145,7 +145,7 @@ body {
     top: 0px;
     left: 50%;
     width: 1px;
-    height: 250px;
+    height: 400px;
     background: #0FF; }
   .pointer-wrap .pointer-arrow {
     display: block;
@@ -168,18 +168,44 @@ body {
     top: 0px;
     left: 50%;
     width: 3px;
-    height: 83.33333px;
+    height: 100px;
     margin-left: -1px;
     background: #0FF; }
+  .pointer-wrap .pointer-end {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 3px;
+    height: 100px;
+    margin-left: -1px;
+    background: #0FF; }
+  .pointer-wrap .pointer-point {
+    display: block;
+    position: absolute;
+    top: 297px;
+    left: 7px;
+    width: 8px;
+    height: 8px;
+    margin: -2px 0 0 -2px;
+    border: 1px solid #0FF;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px; }
 
-#pointer-wrap-2 .pointer-neck {
-  background: #F0F; }
-
-#pointer-wrap-2 .pointer-arrow {
-  border-color: #F0F; }
-
-#pointer-wrap-2 .pointer-end {
-  background: #F0F; }
+#pointer-wrap-2 {
+  height: 400px; }
+  #pointer-wrap-2 .pointer-neck {
+    background: #F0F;
+    height: 266.66667px; }
+  #pointer-wrap-2 .pointer-arrow {
+    border-color: #F0F; }
+  #pointer-wrap-2 .pointer-end {
+    background: #F0F;
+    height: 66.66667px; }
+  #pointer-wrap-2 .pointer-point {
+    top: 197px;
+    border-color: #F0F; }
 
 .spices .img-wrap {
   width: 150px;

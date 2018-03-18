@@ -3,14 +3,15 @@
 <div n:block=title class="title">Vyplňování nových záznamů</div>
 {include 'birdform.latte'}
 
-
-<div class="form-wrap">
-	{form skipForm}
-		<div class="hide">
-			{input 'id'}
-		</div>
-		<div class="buttons skipp">
-			{input 'send'}
-		</div>
-	{/form}		
-</div>
+{if $post}
+	<div class="form-wrap">
+		{form skipForm}
+			<div class="hide">
+				{input 'id'}
+			</div>
+			<div class="buttons skipp">
+				{input 'send'}
+			</div>
+		{/form}		
+	</div>
+{/if}
