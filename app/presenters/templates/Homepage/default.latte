@@ -1,6 +1,8 @@
 {block content}
 <h1 n:block="title">Přehled</h1>
 {*
+
+	SELECT *,count(*) FROM `ptaci` left JOIN ip on ptaci.ip=ip.ip group by ptaci.ip,ip.name
     {foreach $posts as $post}
     <div class="post">
         <div class="date">{$post->datetime|date:'F j, Y'}</div>
@@ -40,9 +42,9 @@
 			<td>{$post->place}</td>
 			<td>{$post->year}</td>
 			<td>{$post->month}</td>
-			<td><a n:href="Post:yearMonth $post->year, $post->month">Vyplňovat</a></td>
-			<td><a n:href="Post:yearMonthSkipped $post->year, $post->month, 0">  Přeskočené</a></td>
-			<td><a n:href="Post:yearMonthDone $post->year, $post->month, 0">  Vyplněné</a></td>
+			<td><a n:if="$post->notFilled" n:href="Post:yearMonth $post->year, $post->month">Vyplňovat</a></td>
+			<td><a n:if="$post->skipped" n:href="Post:yearMonthSkipped $post->year, $post->month, 0">  Přeskočené</a></td>
+			<td><a n:if="$post->filled" n:href="Post:yearMonthDone $post->year, $post->month, 0">  Vyplněné</a></td>
 		</tr>
 
 		{var $notFilledCount = $notFilledCount + $post->notFilled}

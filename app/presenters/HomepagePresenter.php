@@ -25,7 +25,7 @@ class HomepagePresenter extends Nette\Application\UI\Presenter {
 				. "SELECT "
 				. "count(*) total,"
 				. "COUNT(IF( NOT(" . PostPresenter::WHERE_NOT_FILLED_RECORD . "),1,NULL)) filled,"
-				. "COUNT(IF( " . PostPresenter::WHERE_NOT_FILLED_RECORD . ",1,NULL)) notFilled,"
+				. "COUNT(IF( " . PostPresenter::WHERE_NOT_FILLED_RECORD . " AND skipped = 0,1,NULL)) notFilled,"
 				. "COUNT(IF(skipped = 1,1,NULL)) skipped,"
 				. "place,year(datetime) year,month(datetime) month "
 				. "FROM `ptaci` "
