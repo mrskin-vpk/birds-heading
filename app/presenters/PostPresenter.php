@@ -57,20 +57,21 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 		}
 	}
 
-	public function actionYearMonthSkipped($year, $month) {
+	public function actionYearMonthSkipped($year, $month, $offset) {
 		$posts = $this->database
 				->table('ptaci')
+				->select("SQL_CALC_FOUND_ROWS *")
 				->where("month(datetime)=?", $month)
 				->where("year(datetime)=?", $year)
 				->where("skipped=1")
 				->where("deleted=0")
-				->where(self::WHERE_NOT_FILLED_RECORD)
 				->order("datetime")
-				->limit(2);
+				->limit(2, $offset);
 		$this->post = $posts->fetch();
 		while ($post = $posts->fetch()) {
 			$this->nextPosts[] = $post;
 		}
+		$this->template->rowsTotal = $this->database->fetch("SELECT FOUND_ROWS() as pocet");		
 	}
 
 	public function renderYearMonthDone($year, $month, $offset) {
@@ -86,9 +87,13 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 		$this->template->nextPosts = $this->nextPosts;
 	}
 
-	public function renderYearMonthSkipped() {
+	public function renderYearMonthSkipped($year, $month, $offset) {
 		$this->template->post = $this->post;
+		$this->template->year = $year;
+		$this->template->month = $month;
+		
 		$this->template->nextPosts = $this->nextPosts;
+		$this->template->offset = $offset;
 	}
 
 	protected function createComponentSkipForm() {

@@ -20,6 +20,30 @@ $pointer-size: 2px;
 }
 
 body {
+	table.stats {
+		border-collapse: collapse;
+		td,th {
+			border: 1px solid #ddd;
+			padding: 8px;
+			text-align: right;
+		}
+		tr:nth-child(even){
+			background-color: #f2f2f2;
+		}		
+		tr:hover {
+			background-color: #ddd;
+		}
+		th {
+			padding-top: 12px;
+			padding-bottom: 12px;
+			background-color: #929292;
+			color: white;
+			text-align: center;
+		}	
+		.totals th {
+			text-align: right;
+		}
+	}
 	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	.back-link {
 		float: left;

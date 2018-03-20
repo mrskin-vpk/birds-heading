@@ -1,5 +1,23 @@
 body {
   font-family: Arial, Helvetica Neue, Helvetica, sans-serif; }
+  body table.stats {
+    border-collapse: collapse; }
+    body table.stats td, body table.stats th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: right; }
+    body table.stats tr:nth-child(even) {
+      background-color: #f2f2f2; }
+    body table.stats tr:hover {
+      background-color: #ddd; }
+    body table.stats th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      background-color: #929292;
+      color: white;
+      text-align: center; }
+    body table.stats .totals th {
+      text-align: right; }
   body .back-link {
     float: left;
     margin-right: 20px; }
