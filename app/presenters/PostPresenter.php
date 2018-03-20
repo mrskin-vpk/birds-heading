@@ -185,6 +185,7 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 		$postId = $values->id;
 		$this->database->table('ptaci')->where('id = ?', $postId)->update([
 			'skipped' => 1,
+			'ip' => $this->getHttpRequest()->getRemoteAddress(),
 		]);
 		//$this->flashMessage('Děkuji za komentář', 'success');
 		$this->redirect('this');
@@ -194,6 +195,7 @@ class PostPresenter extends Nette\Application\UI\Presenter {
 		$postId = $values->id;
 		$this->database->table('ptaci')->where('id = ?', $postId)->update([
 			'deleted' => 1,
+			'ip' => $this->getHttpRequest()->getRemoteAddress(),
 		]);
 		$this->redirect('this');
 	}
