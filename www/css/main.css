@@ -85,9 +85,9 @@ body {
     position: relative;
     cursor: crosshair; }
     body .image-wrap.cursor-1 {
-      cursor: url(/img/crosshair-1.cur), auto; }
+      //cursor: url(/img/crosshair-1.cur), crosshair; }
     body .image-wrap.cursor-2 {
-      cursor: url(/img/crosshair-2.cur), auto; }
+      //cursor: url(/img/crosshair-2.cur), crosshair; }
     body .image-wrap #image, body .image-wrap #body, body .image-wrap #head {
       position: absolute;
       width: 1000px;
