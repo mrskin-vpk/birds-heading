@@ -1,0 +1,18 @@
+{block content}
+<div><a n:href="Homepage:default">HOME</a></div><br>
+<h1 n:block="title">Uživatelé</h1>
+<table  class="stats">
+	<tr>
+		<th>IP</th>
+		<th>Jméno</th>
+		<th>Hotovo</th>
+	</tr>
+	{foreach $posts as $post}
+		<tr>
+			<td>{$post->ip}</td>
+			<td>{$post->name}</td>
+			<td>{$post->count}</td>
+		</tr>
+    {/foreach}
+</table>
+{/block}

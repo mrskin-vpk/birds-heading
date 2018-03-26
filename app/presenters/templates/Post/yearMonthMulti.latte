@@ -1,0 +1,20 @@
+{block content}
+<div class="back-link"><a n:href="Homepage:default">Přehled</a></div>
+<div n:block=title class="title">Vyplňování multi záznamů
+	{if $offset>0}
+		<a n:href="Post:yearMonthMulti $year, $month, $offset-1"><< Předchozí</a>
+	{/if}
+	{if $offset+1<$rowsTotal->pocet}
+		<a n:href="Post:yearMonthMulti $year, $month, $offset+1">Další >></a>
+	{/if}
+</div>
+{include 'birdform.latte'}
+
+<div class="navigation">
+	{if $offset>0}
+		<a class="button-href" n:href="Post:yearMonthMulti $year, $month, $offset-1">Předchozí</a>
+	{/if}
+	{if $offset+1<$rowsTotal->pocet}
+		<a class="button-href" n:href="Post:yearMonthMulti $year, $month, $offset+1">Další</a>
+	{/if}
+</div>

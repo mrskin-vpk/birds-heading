@@ -84,10 +84,6 @@ body {
     height: 750px;
     position: relative;
     cursor: crosshair; }
-    body .image-wrap.cursor-1 {
-      //cursor: url(/img/crosshair-1.cur), crosshair; }
-    body .image-wrap.cursor-2 {
-      //cursor: url(/img/crosshair-2.cur), crosshair; }
     body .image-wrap #image, body .image-wrap #body, body .image-wrap #head {
       position: absolute;
       width: 1000px;
@@ -148,6 +144,12 @@ body {
         color: #0FF; }
       .info-wrap .info.same .two {
         color: #F0F; }
+    .info-wrap .info.multi {
+      top: 80px;
+      height: 40px;
+      color: red;
+      padding: 5px;
+      font-size: 30px; }
 
 .pointer-wrap {
   display: none;

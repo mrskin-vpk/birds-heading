@@ -38,6 +38,12 @@
 		<div class="info same" id="same-info">
 			<div class="heading"><span class="one">|</span><span class="two">|</span></div>
 		</div>
+
+		{if $isMulti}
+			<div class="info multi" id="multi-info">
+				<div>{$multiCount}/{$multiTotal}</div>
+			</div>
+		{/if}
 	</div>
 
 	<div class="spices">
@@ -150,9 +156,21 @@
 				{input 'delete'}
 			</div>
 		{/form}		
-
-
 	</div>
+	{if $moreFormVisible}
+		{form moreForm}
+			{input 'id'}
+			<div>
+				{label 'count' /}
+				{input 'count' }
+			</div>
+
+			<div class="buttons">
+				{input 'send'}
+			</div>
+		{/form}		
+	{/if}
+
 {else}
 	Žádná data
 {/if}

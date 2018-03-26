@@ -109,10 +109,10 @@ body {
 		position: relative;
 		cursor: crosshair;
 		&.cursor-1 {
-			cursor: url(/img/crosshair-1.cur), auto;
+			//cursor: url(/img/crosshair-1.cur), auto;
 		}
 		&.cursor-2 {
-			cursor: url(/img/crosshair-2.cur), auto;
+			//cursor: url(/img/crosshair-2.cur), auto;
 		}
 		#image,#body,#head {
 			position: absolute;
@@ -190,6 +190,14 @@ body {
 				color: $color-2;
 			}
 		}
+		&.multi {
+			top: 80px;
+			height: 40px;
+			color: red;
+			padding: 5px;
+			font-size: 30px;
+		}
+		
 
 
 	}

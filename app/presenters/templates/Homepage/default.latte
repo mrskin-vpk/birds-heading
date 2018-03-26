@@ -1,4 +1,5 @@
 {block content}
+<div><a n:href="Stats:users">Uživatelé</a></div><br>
 <h1 n:block="title">Přehled</h1>
 {*
 
@@ -18,12 +19,14 @@
 *}
 {var $filled = 0}
 {var $skipped = 0}
+{var $multi = 0}
 {var $notFilledCount = 0}
 {var $totalCount = 0}
 <table  class="stats">
 	<tr>
 		<th>Hotovo</th>
 		<th>Přeskočeno</th>
+		<th>Multi</th>
 		<th>Zbývá</th>
 		<th>Celkem</th>
 		<th>Lokalita</th>
@@ -32,36 +35,42 @@
 		<th></th>
 		<th></th>
 		<th></th>
+		<th></th>
 	</tr>
 	{foreach $posts as $post}
 		<tr>
 			<td>{$post->filled}</td>
 			<td>{$post->skipped}</td>
+			<td>{$post->multi}</td>
 			<td>{$post->notFilled}</td>
 			<td>{$post->total}</td>
 			<td>{$post->place}</td>
 			<td>{$post->year}</td>
 			<td>{$post->month}</td>
 			<td><a n:if="$post->notFilled" n:href="Post:yearMonth $post->year, $post->month">Vyplňovat</a></td>
-			<td><a n:if="$post->skipped" n:href="Post:yearMonthSkipped $post->year, $post->month, 0">  Přeskočené</a></td>
-			<td><a n:if="$post->filled" n:href="Post:yearMonthDone $post->year, $post->month, 0">  Vyplněné</a></td>
+			<td><a n:if="$post->skipped" n:href="Post:yearMonthSkipped $post->year, $post->month, 0">Přeskočené</a></td>
+			<td><a n:if="$post->multi" n:href="Post:yearMonthMulti $post->year, $post->month, 0">Multi</a></td>
+			<td><a n:if="$post->filled" n:href="Post:yearMonthDone $post->year, $post->month, 0">Vyplněné</a></td>
 		</tr>
 
 		{var $notFilledCount = $notFilledCount + $post->notFilled}
 		{var $totalCount = $totalCount + $post->total}
 		{var $filled = $filled + $post->filled}
 		{var $skipped = $skipped + $post->skipped}
+		{var $multi = $multi + $post->multi}
     {/foreach}
 	<tr class="totals">
 		<th>{$filled}</th>
 		<th>{$skipped}</th>
+		<th>{$multi}</th>
 		<th>{$notFilledCount}</th>
 		<th>{$totalCount}</th>
 		<th></th>
 		<th></th>
 		<th></th>
 		<th></th>
-		<th></dh>
+		<th></th>
+		<th></th>
 		<th></th>
 	</tr>
 
