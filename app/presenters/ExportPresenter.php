@@ -84,7 +84,7 @@ class ExportPresenter extends Nette\Application\UI\Presenter {
 	}
 
 	private function getExportFullPath($fileName, $year, $month, $locality) {
-		return self::EXPORT_PATH . "\\" . $locality . "\\" . $year . "-" . str_pad($month, 2, "0") . "\\" . $fileName;
+		return self::EXPORT_PATH . "\\" . $locality . "\\" . $year . "-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "\\" . $fileName;
 	}
 
 	private function mycopy($s1, $s2) {

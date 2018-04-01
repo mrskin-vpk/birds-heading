@@ -1,6 +1,7 @@
 {block content}
 <div><a n:href="Homepage:default">HOME</a></div><br>
 <h1 n:block="title">Uživatelé</h1>
+<h2>Celkem</h2>
 <table  class="stats">
 	<tr>
 		<th>IP</th>
@@ -15,4 +16,28 @@
 		</tr>
     {/foreach}
 </table>
+<h2>Posledních 50</h2>
+<table  class="stats">
+	<tr>
+		<th>Soubor</th>
+		<th>Lokalita</th>
+		<th>Měsíc</th>
+		<th>IP</th>
+		<th>Kdo</th>
+		<th>Kdy</th>
+		<th>Od minulého</th>
+	</tr>
+	{foreach $edits->fetchAll() as $edit}
+		<tr>
+			<td>{$edit->file}</td>
+			<td>{$edit->place}</td>						
+			<td>{$edit->datetime|date:'Y/m'}</td>
+			<td>{$edit->ip}</td>
+			<td>{$edit->name}</td>
+			<td>{$edit->updated_time|date:'d.m.Y H:i:s'}</td>						
+			<td>{if isset($diff[$iterator->getCounter()])}{$diff[$iterator->getCounter()]->format('%H:%I:%S')}{/if}</td>						
+		</tr>
+    {/foreach}
+</table>
+	
 {/block}
